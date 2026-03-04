@@ -10,9 +10,14 @@
       flite
       libpulseaudio
       libGL
-      glfw-wayland-minecraft
+      glfw
       openal
       stdenv.cc.cc.lib
+      mesa
+      mesa-demos
+      libxkbcommon
+      xorg.libX11
+      xorg.libXcursor
     ];
   in {
     devShell.x86_64-linux = pkgs.mkShell {
@@ -20,7 +25,9 @@
         pkgs.jetbrains.jdk
       ];
       buildInputs = libs;
-      LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libs;
+      shellHook = ''
+        export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath libs}
+      '';
     };
   };
 }
